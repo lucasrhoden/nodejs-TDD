@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/lucasrhoden/nodejs-TDD.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasrhoden/nodejs-TDD/issues"
+  },
+  "homepage": "https://github.com/lucasrhoden/nodejs-TDD#readme"
+}
