@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/lucasrhoden/nodejs-TDD/issues"
   },
-  "homepage": "https://github.com/lucasrhoden/nodejs-TDD#readme"
+  "homepage": "https://github.com/lucasrhoden/nodejs-TDD#readme",
+  "keywords": [],
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
 }
