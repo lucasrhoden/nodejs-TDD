@@ -1,4 +1,4 @@
-import { FisrtController } from "../app/controller/first.controller"
+import { FisrtController } from '../app/controller/first.controller'
 
-const firstController = new FisrtController();
-console.log(firstController.speak());
+const firstController = new FisrtController()
+console.log(firstController.speak())

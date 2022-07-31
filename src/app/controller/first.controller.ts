@@ -1,5 +1,5 @@
 export class FisrtController {
-  speak() {
+  speak (): string {
     return 'Hello controller'
   }
 }
