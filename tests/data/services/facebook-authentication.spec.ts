@@ -1,38 +1,25 @@
 import { AuthenticationError } from '../../../src/domain/errors'
 import { LoadFacebookUserApi } from '../../../src/data/contracts/apis'
 import { FacebookAuthenticationService } from '../../../src/data/services'
-
-// Mock facebook connection
-class LoadFacebookUserApiSpy implements LoadFacebookUserApi {
-  token?: string
-  result = undefined
-  callsCount = 0
-
-  async loadUser (params: LoadFacebookUserApi.Params): Promise<LoadFacebookUserApi.Result> {
-    this.token = params.token
-    ++this.callsCount
-    return this.result
-  }
-}
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('FacebookAuthenticationService', () => {
-  it('should call LoadFacebookUserApi with correct params', async () => {
-    // Instanciate the interface to inject in FacebookAuthenticationService class
-    const loadFacebookUserApi = new LoadFacebookUserApiSpy()
-    const sut = new FacebookAuthenticationService(loadFacebookUserApi)
+  let loadFacebookUserApi: MockProxy<LoadFacebookUserApi>
+  let sut: FacebookAuthenticationService
 
+  beforeEach(() => {
+    // Instanciate the interface to inject in FacebookAuthenticationService class
+    loadFacebookUserApi = mock()
+    sut = new FacebookAuthenticationService(loadFacebookUserApi)
+  })
+  it('should call LoadFacebookUserApi with correct params', async () => {
     await sut.perform({ token: 'any_token' })
 
-    expect(loadFacebookUserApi.token).toBe('any_token')
-    expect(loadFacebookUserApi.callsCount).toBe(1)
+    expect(loadFacebookUserApi.loadUser).toHaveBeenCalledWith({ token: 'any_token' })
+    expect(loadFacebookUserApi.loadUser).toBeCalledTimes(1)
   })
 
   it('should return AuthenticationError in LoadFacebookUserApi if result undefined', async () => {
-    // Instanciate the interface to inject in FacebookAuthenticationService class
-    const loadFacebookUserApi = new LoadFacebookUserApiSpy()
-    loadFacebookUserApi.result = undefined
-    const sut = new FacebookAuthenticationService(loadFacebookUserApi)
-
     const authResult = await sut.perform({ token: 'any_token' })
 
     expect(authResult).toEqual(new AuthenticationError())
